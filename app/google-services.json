@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "97156170338",
+    "firebase_url": "https://statusapp-a1483.firebaseio.com",
+    "project_id": "statusapp-a1483",
+    "storage_bucket": "statusapp-a1483.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97156170338:android:bd42171eec0db5074e073b",
+        "android_client_info": {
+          "package_name": "com.akumbhar20.status"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97156170338-5ifnr22qfkvalgkam046pvhvtpfig35h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxFloPcwCawMhSNUpCfzbRMellqyMm4Gg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "97156170338-5ifnr22qfkvalgkam046pvhvtpfig35h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

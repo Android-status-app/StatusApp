@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/video_thumb"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_status"
+        android:scaleType="centerCrop"
+        android:layout_margin="4dp"
+        android:contentDescription="TODO" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/video_title"
+            android:layout_marginLeft="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A cool Video title..."
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/video_cat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="category . "/>
+            <TextView
+                android:id="@+id/video_views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 Views"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

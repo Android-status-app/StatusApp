@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item
+        android:id="@+id/navigation_category"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="category" />
+
+
+    <item android:id="@+id/notification_popular"
+        android:title="popular"
+        android:icon="@drawable/ic_popular"
+        />
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+
+
+    <item android:title="library"
+        android:id="@+id/notification_library"
+        android:icon="@drawable/ic_library"/>
+
+
+    <item
+        android:id="@+id/navigation_status"
+        android:icon="@drawable/ic_status"
+        android:title="status" />
+
+</menu>

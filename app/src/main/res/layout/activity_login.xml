@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.LoginActivity">
+    <TextView
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/mtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter Yoour Mobile Number :"/>
+    <EditText
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/mtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mobile_number"/>
+    <Button
+        android:id="@+id/send_otp"
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="40dp"
+        android:background="@color/colormain"
+        android:textColor="@color/white"
+        android:layout_below="@+id/mobile_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send OTP"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Enter Your OTP Here :"
+        android:layout_below="@+id/send_otp"
+        android:id="@+id/stext"
+        android:layout_marginTop="40dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stext"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/otp_text"/>
+    <Button
+        android:id="@+id/verify_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verify"
+        android:background="@color/colormain"
+        android:layout_marginHorizontal="40dp"
+        android:textColor="@color/white"
+        android:layout_below="@+id/otp_text"
+        android:layout_marginTop="50dp"/>
+
+</RelativeLayout>
