@@ -6,6 +6,7 @@ android {
         applicationId "com.akumbhar20.status"
         minSdkVersion 16
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -37,6 +38,12 @@ dependencies {
 
     //firebase storage
     implementation 'com.google.firebase:firebase-storage:19.1.0'
+
+    //firebase firestore
+    implementation 'com.google.firebase:firebase-firestore:21.2.1'
+
+    //multidesk dependancy
+    implementation 'androidx.multidex:multidex:2.0.0'
 
 }
 
