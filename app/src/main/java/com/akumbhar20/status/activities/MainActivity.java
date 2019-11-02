@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.akumbhar20.status.R;
 import com.akumbhar20.status.fragments.HomeFragment;
+import com.akumbhar20.status.fragments.LibraryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     //mTextMessage.setText("Popular");
                     return true;
                 case R.id.notification_library:
+                    displayfragment(new LibraryFragment());
                     //mTextMessage.setText("Library");
                     return true;
             }

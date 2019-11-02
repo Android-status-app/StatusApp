@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.LibraryFragment">
-
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/text_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Uploads"
+        android:layout_marginStart="10dp"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp" />
+
+    <View
+        android:layout_marginHorizontal="10dp"
+        android:id="@+id/view"
+        android:layout_below="@+id/text_upload"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        android:id="@+id/recycler_uploads" />
+</RelativeLayout>

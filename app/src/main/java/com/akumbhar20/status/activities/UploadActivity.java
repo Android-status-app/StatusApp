@@ -18,6 +18,7 @@ import android.util.TimeUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.akumbhar20.status.R;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,6 +52,7 @@ public class UploadActivity extends AppCompatActivity {
     private Button choose_video;
     ProgressBar progressBar;
     TextView ptext,ttext;
+    ImageView thumbnail;
 
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -60,6 +63,7 @@ public class UploadActivity extends AppCompatActivity {
 private VideoView videoView;
 FirebaseStorage storage;
 EditText title;
+    private String thumb_uri = "NULL";
 
 
     @Override
@@ -74,6 +78,7 @@ EditText title;
         progressBar.setVisibility(View.GONE);
         progressBar.setMax(100);
         ptext=findViewById(R.id.ptext);
+        thumbnail = findViewById(R.id.upload_thumbnail);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             progressBar.setMin(0);
         }
@@ -182,33 +187,77 @@ EditText title;
 
     }
 
-    private void store_video_info(String downloadUri) {
+    private void store_video_info(final String downloadUri) {
         title=(EditText)findViewById(R.id.video_title);
-        Map<String, Object> data = new HashMap<>();
-        data.put("UserId", FirebaseAuth.getInstance().getCurrentUser().getUid());
-        data.put("title",title.getText().toString());
-        data.put("timestamp", Timestamp.now());
-        data.put("downloaduri", downloadUri);
-        data.put("status","Approved");
-        //db=FirebaseFirestore.getInstance().document(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        db.collection("user_uploads")
-                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .collection("videos")
-                .add(data)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(UploadActivity.this, "firestore data Added", Toast.LENGTH_SHORT).show();
-
-                    }
-                })
-
+        final StorageReference storageRef = storage.getReference().child("video thumbnails/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/" + System.currentTimeMillis() + ".png");
+        thumbnail.setDrawingCacheEnabled(true);
+        thumbnail.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) thumbnail.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] thumb_data = baos.toByteArray();
+        UploadTask uploadTask = storageRef.putBytes(thumb_data);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(UploadActivity.this, "thumbnail uploaded", Toast.LENGTH_SHORT).show();
+            }
+        })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadActivity.this, "thumbnail upload error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
+        Task<Uri> urltask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return storageRef.getDownloadUrl();
+            }
+        })
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        thumb_uri = task.getResult().toString();
+
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("UserId", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        data.put("title", title.getText().toString());
+                        data.put("thumbnail", thumb_uri);
+                        data.put("timestamp", Timestamp.now());
+                        data.put("downloaduri", downloadUri);
+                        data.put("status", "Approved");
+                        //db=FirebaseFirestore.getInstance().document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        db.collection("user_uploads")
+                                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .collection("videos")
+                                .add(data)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(UploadActivity.this, "firestore data Added", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                })
+
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                    }
+                });
+
+
     }
 
 
@@ -236,6 +285,10 @@ EditText title;
             });
             choose_video.setText("Upload");
             videoView.start();
+            Glide.with(UploadActivity.this).load(videouri).into(thumbnail);
+            thumbnail.setDrawingCacheEnabled(true);
+            videoView.setBackground(thumbnail.getDrawable());
+
 
 
 

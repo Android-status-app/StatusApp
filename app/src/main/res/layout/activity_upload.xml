@@ -88,4 +88,13 @@
         android:id="@+id/video_title"
         android:layout_below="@+id/v_title"/>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/upload_thumbnail"
+        android:layout_alignParentBottom="true"
+        android:background="@color/cardview_dark_background"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="40dp" />
+
 </RelativeLayout>
